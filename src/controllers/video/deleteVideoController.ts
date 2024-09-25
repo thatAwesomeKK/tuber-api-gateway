@@ -28,7 +28,7 @@ export default async function deleteVideoController(
 
     return res.status(payload.status).json(payload.data);
   } catch (error: any) {
-    console.log(error?.response.data);
+    console.log(error?.response);
     return res.status(500).json({ message: "Internal server error" });
   }
 }

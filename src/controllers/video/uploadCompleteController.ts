@@ -11,11 +11,13 @@ export default async function uploadCompleteController(
     const user = req.user;
 
     const payload: any = await uploadComplete(originalname, user, uploadId);
+    console.log(payload);
+    
 
     return res.status(200).json({
       success: true,
       message: "Video uploading!",
-      videoId: payload.videoId,
+      id: payload.id,
     });
   } catch (error) {
     console.log(error);

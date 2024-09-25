@@ -2,6 +2,7 @@ import express from "express";
 import videoRouter from "./router/video";
 import authRouter from "./router/auth";
 import userRouter from "./router/user";
+import playlistRouter from "./router/playlist";
 import commentRouter from "./router/comment";
 import cors from "cors";
 import cookieParser from "cookie-parser";
@@ -32,6 +33,7 @@ app.use("/api/video", videoRouter);
 app.use("/api/comment", commentRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
+app.use("/api/playlist", playlistRouter);
 
 const expressServer = app.listen(PORT, () => {
   console.log("Server is running on http://localhost:" + PORT);
@@ -52,7 +54,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("connect-upload-form", (payload) => {
-    console.log("Client connected: " + socket.id);
+    console.log("Client connected to room: " + payload.uploadId);
     socket.join(payload.uploadId);
   });
 
@@ -61,7 +63,7 @@ io.on("connection", (socket) => {
     // if ((await io.in(uploadId).fetchSockets()).length < 2) return;
     await setTimeout(5000);
     console.log("Thumbnail complete: " + uploadId);
-    io.to(payload.uploadId).emit("video-thumbnail-complete", {
+    io.to(uploadId).emit("video-thumbnail-complete", {
       thumbnail: payload.thumbnail,
     });
   });

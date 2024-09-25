@@ -19,7 +19,11 @@ export const uploadVideo = async (filename: string, fileStream: any) => {
   return payload.data;
 };
 
-export const uploadComplete = async (originalname: string, user: any, uploadId: string) => {
+export const uploadComplete = async (
+  originalname: string,
+  user: any,
+  uploadId: string
+) => {
   //Send a request to the metadata server to create a new video entry
   const payload1 = new Promise(async (resolve, reject) => {
     await axios
@@ -28,7 +32,7 @@ export const uploadComplete = async (originalname: string, user: any, uploadId: 
         {
           originalname,
           user,
-          uploadId
+          uploadId,
         },
         {
           headers: {
@@ -59,6 +63,10 @@ export const uploadComplete = async (originalname: string, user: any, uploadId: 
 
 export const fetchAllVideos = async () => {
   return await axios.get(`${metadataUrl}/fetch`);
+};
+
+export const searchVideos = async (s: string) => {
+  return await axios.get(`${metadataUrl}/search?s=${s}`);
 };
 
 export const fetchVideoMetadata = async (id: string) => {

@@ -13,6 +13,7 @@ import handleViewCountController from "../controllers/video/handleViewCountContr
 import checkGuest from "../middleware/checkGuest";
 import handleLikeController from "../controllers/video/handleLikeController";
 import handleDislikeController from "../controllers/video/handleDislikeController";
+import searchVideoController from "../controllers/video/searchVideoController";
 const router = Router();
 
 router.post(
@@ -38,6 +39,8 @@ router.get("/fetch-by-tag/:id", fetchVideoByTagController);
 router.put("/handle-view-count/:id", handleViewCountController);
 router.put("/handle-like", authMiddleware, handleLikeController);
 router.put("/handle-dislike", authMiddleware, handleDislikeController);
+
+router.get("/search", searchVideoController);
 
 router.put(
   "/update-metadata/:id",

@@ -15,6 +15,7 @@ export default async function streamVideoController(
     return res.status(200).json({
       success: true,
       videoLink: `${env.METADATA_SERVER_URL}/api/video/stream/${videoId}`,
+      // videoLink: `http://192.168.29.13:5000/api/video/stream/${videoId}`,
     });
   } catch (error) {
     console.log(error);
